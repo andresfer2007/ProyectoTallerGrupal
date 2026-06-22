@@ -1,4 +1,5 @@
 package ejecutarjuego;
+
 public class Arquero extends Personaje {
 
     private int precision;
@@ -10,12 +11,12 @@ public class Arquero extends Personaje {
 
     @Override
     public int atacar() {
-        return precision * nivel;
+        return (precision * nivel) + getBonusAtaque();
     }
 
     @Override
     public int defender() {
-        return 4;
+        return 4 + getBonusDefensa();
     }
 
     @Override
