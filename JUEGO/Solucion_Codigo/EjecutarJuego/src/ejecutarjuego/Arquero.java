@@ -7,6 +7,9 @@ public class Arquero extends Personaje {
         super(nombre, vida, nivel);
         this.precision = precision;
     }
+    public int getPrecision(){
+        return precision;
+    }
 
     @Override
     public int atacar() {
@@ -23,5 +26,15 @@ public class Arquero extends Personaje {
         return "\n--- ARQUERO ---"
                 + "\n" + super.toString()
                 + "\nPrecision: " + precision;
+    }
+    //cambios
+    @Override
+    public int usarHabilidadEspecial(){
+        if(energia>=20 && cooldown==0){
+            energia-=20;
+            cooldown=2;
+            return (getPrecision()*nivel)+30;
+        }
+        return atacar();
     }
 }
