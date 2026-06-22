@@ -1,0 +1,27 @@
+package ejecutarjuego;
+public class Arquero extends Personaje {
+
+    private int precision;
+
+    public Arquero(String nombre, int vida, int nivel, int precision) {
+        super(nombre, vida, nivel);
+        this.precision = precision;
+    }
+
+    @Override
+    public int atacar() {
+        return precision * nivel;
+    }
+
+    @Override
+    public int defender() {
+        return 4;
+    }
+
+    @Override
+    public String toString() {
+        return "\n--- ARQUERO ---"
+                + "\n" + super.toString()
+                + "\nPrecision: " + precision;
+    }
+}
