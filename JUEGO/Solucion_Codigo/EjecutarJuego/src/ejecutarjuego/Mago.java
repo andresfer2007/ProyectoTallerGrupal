@@ -8,6 +8,9 @@ public class Mago extends Personaje {
         super(nombre, vida, nivel);
         this.magia = magia;
     }
+    public int getMagia(){
+        return magia;
+    }
 
     @Override
     public int atacar() {
@@ -25,4 +28,16 @@ public class Mago extends Personaje {
                 + "\n" + super.toString()
                 + "\nMagia: " + magia;
     }
+
+    //cambios
+    @Override
+    public int usarHabilidadEspecial(){
+        if(energia>=40 && cooldown==0){
+            energia-=40;
+            cooldown=4;
+            return (getMagia()*nivel)+50;
+        }
+        return atacar();
+    }
 }
+

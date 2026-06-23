@@ -9,6 +9,9 @@ public abstract class Personaje {
     protected int vidaMaxima;
     protected int nivel;
     protected int victorias;
+    //cambios
+    protected int energia;
+    protected int cooldown;
 
     protected ArrayList<Objeto> inventario;
     protected Arma armaEquipada = null;
@@ -21,9 +24,15 @@ public abstract class Personaje {
         this.nivel = nivel;
         this.victorias = 0;
 
-        this.inventario = new ArrayList<>();
-    }
 
+        this.inventario = new ArrayList<>();
+
+        //cambios
+        this.energia = 100;
+        this.cooldown =0;
+
+    }
+    
     public void sumarVictoria() {
         victorias++;
     }
@@ -114,6 +123,27 @@ public abstract class Personaje {
     public int getVida() {
         return vida;
     }
+    //cambios
+    public int getEnergia(){
+        return energia;
+    }
+    public int getCooldown(){
+        return cooldown;
+    }
+    
+    public abstract int usarHabilidadEspecial();
+    public void recuperarEnergia(){
+        energia += 10;
+        if(energia>100){
+            energia =100;
+        }
+    }      
+    public void actualizarCooldown(){
+        if(cooldown>0){
+            cooldown--;
+        }
+    }
+        
 
     public int getNivel() {
         return nivel;

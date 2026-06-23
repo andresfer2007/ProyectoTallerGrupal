@@ -15,6 +15,7 @@ public class Guerrero extends Personaje {
                 + "\n" + super.toString()
                 + "\nFuerza: " + fuerza;
     }
+<<<<<<< HEAD
 
     @Override
     public int atacar() {
@@ -27,3 +28,15 @@ public class Guerrero extends Personaje {
     }
 
 }
+=======
+    @Override
+    public int usarHabilidadEspecial(){
+        if(energia>=30 && cooldown==0){
+            energia-=30;
+            cooldown=3;
+            return atacar()*3;
+        }
+        return atacar();
+    }
+}
+>>>>>>> main
