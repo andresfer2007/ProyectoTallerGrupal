@@ -1,24 +1,19 @@
 package ejecutarjuego;
 
-public class Envenenado implements IEstadoAlterado {
+public class Envenenado extends EstadoAlterado {
 
-    private int turnos;
     private int danioPorTurno;
 
     public Envenenado(int turnos, int danioPorTurno) {
-        this.turnos = turnos;
+        super("Envenenado", turnos);
         this.danioPorTurno = danioPorTurno;
-    }
-
-    @Override
-    public String getNombre() {
-        return "Envenenado";
     }
 
     @Override
     public void aplicarInicioTurno(Personaje personaje) {
         personaje.recibirDanio(danioPorTurno);
-        System.out.println(personaje.getNombre() + " pierde " + danioPorTurno + " de vida por veneno.");
+        System.out.println(personaje.getNombre() + " pierde "
+                + danioPorTurno + " de vida por veneno.");
     }
 
     @Override
@@ -29,15 +24,5 @@ public class Envenenado implements IEstadoAlterado {
     @Override
     public boolean permiteAtacar() {
         return true;
-    }
-
-    @Override
-    public void reducirDuracion() {
-        turnos--;
-    }
-
-    @Override
-    public boolean estaActivo() {
-        return turnos > 0;
     }
 }

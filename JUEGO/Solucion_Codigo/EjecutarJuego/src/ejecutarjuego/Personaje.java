@@ -14,7 +14,7 @@ public abstract class Personaje {
     protected int cooldown;
 
     // estados alterados del personaje
-    protected ArrayList<IEstadoAlterado> estadosAlterados;
+    protected ArrayList<EstadoAlterado> estadosAlterados;
 
     public Personaje(String nombre, int vida, int nivel) {
         this.nombre = nombre;
@@ -26,7 +26,7 @@ public abstract class Personaje {
         this.energia = 100;
         this.cooldown = 0;
 
-        this.estadosAlterados = new ArrayList<IEstadoAlterado>();
+        this.estadosAlterados = new ArrayList<EstadoAlterado>();
     }
 
     public void sumarVictoria() {
@@ -97,21 +97,21 @@ public abstract class Personaje {
 
     // control de estados
 
-    public void agregarEstado(IEstadoAlterado estado) {
+    public void agregarEstado(EstadoAlterado estado) {
         estadosAlterados.add(estado);
         System.out.println(nombre + " recibe el estado: " + estado.getNombre());
     }
 
     public void aplicarEstadosInicioTurno() {
         for (int i = 0; i < estadosAlterados.size(); i++) {
-            IEstadoAlterado estado = estadosAlterados.get(i);
+            EstadoAlterado estado = estadosAlterados.get(i);
             estado.aplicarInicioTurno(this);
         }
     }
 
     public boolean puedeAtacar() {
         for (int i = 0; i < estadosAlterados.size(); i++) {
-            IEstadoAlterado estado = estadosAlterados.get(i);
+            EstadoAlterado estado = estadosAlterados.get(i);
 
             if (estado.permiteAtacar() == false) {
                 return false;
@@ -125,17 +125,17 @@ public abstract class Personaje {
         int ataqueFinal = ataqueBase;
 
         for (int i = 0; i < estadosAlterados.size(); i++) {
-            IEstadoAlterado estado = estadosAlterados.get(i);
+            EstadoAlterado estado = estadosAlterados.get(i);
             ataqueFinal = estado.modificarAtaque(ataqueFinal);
         }
         return ataqueFinal;
     }
 
     public void actualizarEstadosAlterados() {
-        ArrayList<IEstadoAlterado> estadosActivos = new ArrayList<IEstadoAlterado>();
+        ArrayList<EstadoAlterado> estadosActivos = new ArrayList<EstadoAlterado>();
 
         for (int i = 0; i < estadosAlterados.size(); i++) {
-            IEstadoAlterado estado = estadosAlterados.get(i);
+            EstadoAlterado estado = estadosAlterados.get(i);
 
             estado.reducirDuracion();
 
