@@ -96,7 +96,6 @@ public abstract class Personaje {
     }
 
     // control de estados
-
     public void agregarEstado(EstadoAlterado estado) {
         estadosAlterados.add(estado);
         System.out.println(nombre + " recibe el estado: " + estado.getNombre());
@@ -128,6 +127,7 @@ public abstract class Personaje {
             EstadoAlterado estado = estadosAlterados.get(i);
             ataqueFinal = estado.modificarAtaque(ataqueFinal);
         }
+
         return ataqueFinal;
     }
 
@@ -145,6 +145,7 @@ public abstract class Personaje {
                 System.out.println(nombre + " ya no tiene el estado: " + estado.getNombre());
             }
         }
+
         estadosAlterados = estadosActivos;
     }
 
