@@ -10,21 +10,25 @@ public class Guerrero extends Personaje {
     }
 
     @Override
-    public int atacar() {
-        return fuerza * nivel;
-    }
-
-    @Override
-    public int defender() {
-        return 5;
-    }
-
-    @Override
     public String toString() {
         return "\n--- GUERRERO ---"
                 + "\n" + super.toString()
                 + "\nFuerza: " + fuerza;
     }
+<<<<<<< HEAD
+
+    @Override
+    public int atacar() {
+        return (fuerza * nivel) + getBonusAtaque(); // incluye bonus del arma
+    }
+
+    @Override
+    public int defender() {
+        return 5 + getBonusDefensa(); // incluye bonus de armadura
+    }
+
+}
+=======
     @Override
     public int usarHabilidadEspecial(){
         if(energia>=30 && cooldown==0){
@@ -35,3 +39,4 @@ public class Guerrero extends Personaje {
         return atacar();
     }
 }
+>>>>>>> main

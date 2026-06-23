@@ -1,4 +1,5 @@
 package ejecutarjuego;
+
 public class Mago extends Personaje {
 
     private int magia;
@@ -13,12 +14,12 @@ public class Mago extends Personaje {
 
     @Override
     public int atacar() {
-        return magia * nivel;
+        return (magia * nivel) + getBonusAtaque();
     }
 
     @Override
     public int defender() {
-        return 3;
+        return 3 + getBonusDefensa();
     }
 
     @Override
@@ -27,6 +28,7 @@ public class Mago extends Personaje {
                 + "\n" + super.toString()
                 + "\nMagia: " + magia;
     }
+
     //cambios
     @Override
     public int usarHabilidadEspecial(){
@@ -38,3 +40,4 @@ public class Mago extends Personaje {
         return atacar();
     }
 }
+
