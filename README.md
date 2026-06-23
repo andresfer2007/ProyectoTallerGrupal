@@ -2,13 +2,13 @@
 
 ### Descripción
 
-Se implementó una interfaz `IEstadoAlterado` que puede aplicarse a cualquier personaje del sistema de combate. Esta interfaz permite crear diferentes efectos temporales que modifican el comportamiento del personaje durante la batalla.
+Se implementó una clase abstracta `EstadoAlterado` que puede aplicarse a cualquier personaje del sistema de combate. A partir de esta clase se crean diferentes estados que modifican el comportamiento del personaje durante la batalla.
 
 Ejemplos de estados implementados:
 
-* **Envenenado:** el personaje pierde vida por turno.
-* **Congelado:** el personaje no puede atacar por 1 turno.
-* **Aumento de Fuerza:** el personaje mejora su ataque durante algunos turnos.
+- **Envenenado:** el personaje pierde vida por turno.
+- **Congelado:** el personaje no puede atacar por 1 turno.
+- **Aumento de Fuerza:** el personaje mejora su ataque durante algunos turnos.
 
 ### Impacto
 
