@@ -30,6 +30,13 @@ public class EjecutarJuego {
             System.out.println(p);
         }
 
+        // Estados alterados 
+        System.out.println("\n===== ESTADOS ALTERADOS APLICADOS =====");
+
+        participantes.get(0).agregarEstado(new Envenenado(3, 5));
+        participantes.get(0).agregarEstado(new Congelado(1));
+        participantes.get(1).agregarEstado(new AumentoFuerza(2, 10));
+
         Combate.jugarTorneoTodosContraTodos(participantes);
 
         leer.close();

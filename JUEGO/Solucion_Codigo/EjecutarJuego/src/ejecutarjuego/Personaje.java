@@ -1,4 +1,7 @@
 package ejecutarjuego;
+
+import java.util.ArrayList;
+
 public abstract class Personaje {
 
     protected String nombre;
@@ -6,9 +9,12 @@ public abstract class Personaje {
     protected int vidaMaxima;
     protected int nivel;
     protected int victorias;
-    //cambios
+
     protected int energia;
     protected int cooldown;
+
+    // estados alterados del personaje
+    protected ArrayList<IEstadoAlterado> estadosAlterados;
 
     public Personaje(String nombre, int vida, int nivel) {
         this.nombre = nombre;
@@ -16,11 +22,13 @@ public abstract class Personaje {
         this.vidaMaxima = vida;
         this.nivel = nivel;
         this.victorias = 0;
-        //cambios
+
         this.energia = 100;
-        this.cooldown =0;
+        this.cooldown = 0;
+
+        this.estadosAlterados = new ArrayList<IEstadoAlterado>();
     }
-    
+
     public void sumarVictoria() {
         victorias++;
     }
@@ -37,8 +45,10 @@ public abstract class Personaje {
 
     public abstract int defender();
 
+    public abstract int usarHabilidadEspecial();
+
     public void recibirDanio(int danio) {
-        vida -= danio;
+        vida = vida - danio;
 
         if (vida < 0) {
             vida = 0;
@@ -51,7 +61,7 @@ public abstract class Personaje {
 
     public void subirNivel() {
         nivel++;
-        vidaMaxima += 20;
+        vidaMaxima = vidaMaxima + 20;
         vida = vidaMaxima;
     }
 
@@ -62,32 +72,88 @@ public abstract class Personaje {
     public int getVida() {
         return vida;
     }
-    //cambios
-    public int getEnergia(){
+
+    public int getEnergia() {
         return energia;
     }
-    public int getCooldown(){
+
+    public int getCooldown() {
         return cooldown;
     }
-    
-    public abstract int usarHabilidadEspecial();
-    public void recuperarEnergia(){
-        energia += 10;
-        if(energia>100){
-            energia =100;
+
+    public void recuperarEnergia() {
+        energia = energia + 10;
+
+        if (energia > 100) {
+            energia = 100;
         }
-    }      
-    public void actualizarCooldown(){
-        if(cooldown>0){
+    }
+
+    public void actualizarCooldown() {
+        if (cooldown > 0) {
             cooldown--;
         }
     }
-        
+
+    // control de estados
+
+    public void agregarEstado(IEstadoAlterado estado) {
+        estadosAlterados.add(estado);
+        System.out.println(nombre + " recibe el estado: " + estado.getNombre());
+    }
+
+    public void aplicarEstadosInicioTurno() {
+        for (int i = 0; i < estadosAlterados.size(); i++) {
+            IEstadoAlterado estado = estadosAlterados.get(i);
+            estado.aplicarInicioTurno(this);
+        }
+    }
+
+    public boolean puedeAtacar() {
+        for (int i = 0; i < estadosAlterados.size(); i++) {
+            IEstadoAlterado estado = estadosAlterados.get(i);
+
+            if (estado.permiteAtacar() == false) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public int obtenerAtaqueConEstados(int ataqueBase) {
+        int ataqueFinal = ataqueBase;
+
+        for (int i = 0; i < estadosAlterados.size(); i++) {
+            IEstadoAlterado estado = estadosAlterados.get(i);
+            ataqueFinal = estado.modificarAtaque(ataqueFinal);
+        }
+        return ataqueFinal;
+    }
+
+    public void actualizarEstadosAlterados() {
+        ArrayList<IEstadoAlterado> estadosActivos = new ArrayList<IEstadoAlterado>();
+
+        for (int i = 0; i < estadosAlterados.size(); i++) {
+            IEstadoAlterado estado = estadosAlterados.get(i);
+
+            estado.reducirDuracion();
+
+            if (estado.estaActivo()) {
+                estadosActivos.add(estado);
+            } else {
+                System.out.println(nombre + " ya no tiene el estado: " + estado.getNombre());
+            }
+        }
+        estadosAlterados = estadosActivos;
+    }
 
     @Override
     public String toString() {
         return "Nombre: " + nombre
                 + "\nVida: " + vida
-                + "\nNivel: " + nivel;
+                + "\nNivel: " + nivel
+                + "\nEnergia: " + energia
+                + "\nCooldown: " + cooldown;
     }
 }
